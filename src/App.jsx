@@ -9,13 +9,16 @@ export default function App() {
     {id:2, content: "React is fun.", name: "Bob"},
     {id:3, content: "Yay, interesting.", name: "Chris"},
   ]);
+  const remove = id => {
+    setData(data.filter(item => item.id !== id));
+  }
 
   return (
     <div style={{ maxWidth: 600, margin: "20px auto" }}>
       <h1>React</h1>
       <List>
         {data.map(item => {
-          return <Item content={item.content} name={item.name} />
+          return <Item key={item.id} item={item} content={item.content} name={item.name} remove={remove} />
         })}
       </List>
     </div>

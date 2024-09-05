@@ -1,14 +1,15 @@
 import { useContext, useState } from "react";
+import { AppContext } from "./ThemedApp";
 
 import List from "./List";
 import Item from "./Item";
 import Form from "./Form";
-import { AppContext } from "./ThemedApp";
+
 
 export default function App() {
-  const { mode } = useContext(AppContext);
-  const [showForm, setShowForm] = useState(false);
+  const { mode, setMode } = useContext(AppContext);
 
+  const [showForm, setShowForm] = useState(false);
   const [data, setData] = useState([
     {id:1, content: "Hello, World!", name: "Alice"},
     {id:2, content: "React is fun.", name: "Bob"},
@@ -25,15 +26,15 @@ export default function App() {
 };
 
 
-  return (
-    <div
-      style={{
-        minHeight: 1500,
-        background: mode === "dark" ? "black" : "white",
-        color: mode === "dark" ? "white" : "black",
-        paddingTop: 20,
-      }}>
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+return (
+  <div
+    style={{
+      minHeight: 1500,
+      background: mode === "dark" ? "black" : "white",
+      color: mode === "dark" ? "white" : "black",
+      paddingTop: 20,
+    }}>
+    <div style={{ maxWidth: 600, margin: "0 auto" }}>
       <h1
         style={{
           display: "flex",
@@ -53,6 +54,21 @@ export default function App() {
             }}>
               {showForm ? "x" : "+"}
             </button>
+            <button 
+              onClick={() => 
+                setMode(mode === "dark" ? "light": "dark")
+              }
+              style={{
+                marginLeft: 8,
+                padding: "0 20px",
+                height: 32,
+                borderRadius: 32,
+                border: "0 none",
+                background: mode === "dark" ? "#333" : "#ddd",
+                color: mode === "dark" ? "white" : "black",
+              }}>
+                {mode === "dark" ? "Light" : "Dark"}
+              </button>
         </h1>
 
       {showForm && <Form add={add} />}

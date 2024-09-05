@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import List from "./List";
 import Item from "./Item";
 import Form from "./Form";
+import { AppContext } from "./ThemedApp";
 
 export default function App() {
+  const { mode } = useContext(AppContext);
   const [showForm, setShowForm] = useState(false);
 
   const [data, setData] = useState([
@@ -24,13 +26,21 @@ export default function App() {
 
 
   return (
-    <div style={{ maxWidth: 600, margin: "20px auto" }}>
+    <div
+      style={{
+        minHeight: 1500,
+        background: mode === "dark" ? "black" : "white",
+        color: mode === "dark" ? "white" : "black",
+        paddingTop: 20,
+      }}>
+        <div style={{ maxWidth: 600, margin: "0 auto" }}>
       <h1
         style={{
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-        }}>Foodie
+          margin: "0 0 20px 0",
+        }}>React
          <button
             onClick={() => setShowForm(!showForm)}
             style={{
@@ -53,5 +63,6 @@ export default function App() {
         })}
       </List>
     </div>
+      </div>
   );
 }
